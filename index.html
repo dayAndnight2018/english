@@ -1,0 +1,421 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://dayandnight2018.github.io/lib/css/bulma.css" />
+    <script src="https://dayandnight2018.github.io/lib/js/vue.js"></script>
+    <script src="https://dayandnight2018.github.io/lib/js/vueResource.js"></script>
+    <script src="https://dayandnight2018.github.io/lib/js/jquery.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #app-before {
+            width: 2rem;
+            height: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #app-after {
+            width: 2rem;
+            height: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width: 100%;height: 100%;position: relative;" id="app">
+        <div id="app-before" @click="lastPage">&lt;</div>
+        <img :src="current.img" usemap="#image-map" id="main" @load="natual">
+        <map name="image-map" id="image-map">
+            <area v-for="ele in dynamicMap" :title="ele.name" href="javascript:void(0)" @click="play(ele.name)"
+                :coords="ele.cord" :shape="ele.shape">
+        </map>
+        <audio style="display: none;" id="player">
+        </audio>
+        <div id="app-after" @click="nextPage">&gt;</div>
+    </div>
+
+    <script>
+        function play(name) {
+            document.getElementById("player").src = name + ".mp3";
+            document.getElementById("player").play();
+        }
+
+        var vue = new Vue({
+            el: '#app',
+            data: {
+                naturalWidth: 0,
+                naturalHeight: 0,
+                currentIndex: 0,
+                dynamicMap: [],
+                allData: [
+                    {
+                        page: '3.2-3',
+                        img: '3.2-3.png',
+                        map: [
+                            {
+                                name: '3.2-3.1',
+                                cord: '491,292,137,206',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.2-3.2',
+                                cord: '1927,352,1540,252',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.2-3.3',
+                                cord: '459,577,165,487',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.2-3.4',
+                                cord: '516,607,829,521',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.2-3.7',
+                                cord: '1506,451,1696,533',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.2-3.8',
+                                cord: '1673,879,1978,959',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.2-3.5',
+                                cord: '1134,1025,1462,1134',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.2-3.6',
+                                cord: '1612,1119,1903,1198',
+                                shape: 'rect'
+                            }
+                        ]
+                    },
+                    {
+                        page: '3.4-5',
+                        img: '3.4-5.png',
+                        map: [
+                            {
+                                name: '3.4-5.1',
+                                cord: '240,239,601,325',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.4-5.2',
+                                cord: '112,664,446,748',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.4-5.3',
+                                cord: '599,655,858,742',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.4-5.4',
+                                cord: '1478,109,1541,168',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.4-5.5',
+                                cord: '1503,772,1558,822',
+                                shape: 'rect'
+                            }
+                        ]
+                    },
+                    {
+                        page: '3.6-7',
+                        img: '3.6-7.png',
+                        map: [
+                            {
+                                name: '3.6-7.1',
+                                cord: '394,114,468,175',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.6-7.2',
+                                cord: '1108,206,1412,316',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.6-7.3',
+                                cord: '1219,329,1496,409',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.6-7.4',
+                                cord: '1725,164,1919,247',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.6-7.5',
+                                cord: '1546,647,1758,754',
+                                shape: 'rect'
+                            }
+                        ]
+                    },
+                    {
+                        page: '3.8-9',
+                        img: '3.8-9.png',
+                        map: [
+                            {
+                                name: '3.8-9.1',
+                                cord: '430,104,509,166',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.8-9.2',
+                                cord: '367,717,435,789',
+                                shape: 'rect'
+                            }]
+                    }
+                    ,
+                    {
+                        page: '3.10-11',
+                        img: '3.10-11.png',
+                        map: [
+                            {
+                                name: '3.10-11.1',
+                                cord: '500,176,568,232',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.10-11.2',
+                                cord: '405,1124,478,1178',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.10-11.3',
+                                cord: '1490,107,1553,157',
+                                shape: 'rect'
+                            }]
+                    },
+                    {
+                        page: '3.1.w',
+                        img: '3.1.w.png',
+                        map: [
+                            {
+                                name: '3.1.w.1',
+                                cord: '73,339,458,371',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.2',
+                                cord: '71,376,461,408',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.3',
+                                cord: '70,413,461,447',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.4',
+                                cord: '70,453,461,482',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.5',
+                                cord: '70,486,460,518',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.6',
+                                cord: '70,523,460,557',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.7',
+                                cord: '70,561,461,595',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.8',
+                                cord: '70,599,461,632',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.9',
+                                cord: '70,636,463,668',
+                                shape: 'rect'
+                            },
+                            {
+                                name: '3.1.w.10',
+                                cord: '70,673,463,705',
+                                shape: 'rect'
+                            }
+                        ]
+                    }]
+                //,
+                // map: [
+                //     {
+                //         name: '3.10-11.1',
+                //         cord: '500,176,568,232',
+                //         shape: 'rect'
+                //     },
+                //     {
+                //         name: '3.10-11.2',
+                //         cord: '405,1124,478,1178',
+                //         shape: 'rect'
+                //     },
+                //     {
+                //         name: '3.10-11.3',
+                //         cord: '1490,107,1553,157',
+                //         shape: 'rect'
+                //     },
+                //     {
+                //         name: '3.6-7.4',
+                //         cord: '1725,164,1919,247',
+                //         shape: 'rect'
+                //     },
+                //     {
+                //         name: '3.6-7.5',
+                //         cord: '1546,647,1758,754',
+                //         shape: 'rect'
+                //     }
+                // ]
+            },
+            computed: {
+                current() {
+                    return this.allData[this.currentIndex]
+                }
+            },
+            methods: {
+                natual: function () {
+                    this.naturalWidth = $('#main').get(0).naturalWidth;
+                    this.naturalHeight = $('#main').get(0).naturalHeight;
+
+                    var $img = $('#main');
+                    var width = $img.width();
+                    var height = $img.height();
+
+                    console.log("width: " + width + ", height: " + height)
+                    console.log($img.get(0))
+
+                    let dy = []
+                    this.current.map.forEach(ele => {
+                        var coords = ele.cord.split(",");
+                        for (i = 0; i < coords.length; i += 2) {
+                            console.log("before" + coords[i] + "," + coords[i + 1])
+                            var x = coords[i];
+                            var y = coords[i + 1];
+                            coords[i] = parseInt(parseInt(x) * width / this.naturalWidth);
+                            coords[i + 1] = parseInt(parseInt(y) * height / this.naturalHeight);
+                        }
+                        dy.push({
+                            name: ele.name,
+                            shape: ele.shape,
+                            cord: coords.join(",")
+                        });
+                        console.log(dy)
+                    })
+
+                    this.dynamicMap = dy;
+                },
+                play: function (name) {
+                    document.getElementById("player").src = name + ".mp3";
+                    document.getElementById("player").play();
+                },
+                lastPage: function () {
+                    this.currentIndex = (this.currentIndex - 1 + this.allData.length) % this.allData.length;
+                    this.refreshImage();
+                },
+                nextPage: function () {
+                    this.currentIndex = (this.currentIndex + 1 + this.allData.length) % this.allData.length
+                    this.refreshImage();
+                },
+                refreshImage: function () {
+                    var $img = $('#main');
+                    var width = $img.width();
+                    var height = $img.height();
+                    var naturalWidth = $img.get(0).naturalWidth;
+                    var naturalHeight = $img.get(0).naturalHeight;
+                    console.log(naturalWidth);
+                    console.log(naturalHeight);
+                    $("#image-map area").each(function () {
+                        var coords = $(this).attr("coords").split(",");
+                        var points = $(this).attr('points');
+
+                        if (!!points) {
+                            coords = points.split(",");
+                        } else {
+                            $(this).attr('points', coords);
+                        }
+
+                        for (i = 0; i < coords.length; i += 2) {
+                            var x = coords[i];
+                            var y = coords[i + 1];
+                            coords[i] = parseInt(parseInt(x) * width / naturalWidth);
+                            coords[i + 1] = parseInt(parseInt(y) * height / naturalHeight);
+                        }
+                        $(this).attr("coords", coords.join(","));
+                    })
+                },
+                // 图片加载完成触发
+                imgOnError() {
+                    $(window).resize(function () {
+                        var $img = $('#main');
+                        var width = $img.width();
+                        var height = $img.height();
+                        var naturalWidth = $img.get(0).naturalWidth;
+                        var naturalHeight = $img.get(0).naturalHeight;
+                        console.log(naturalWidth);
+                        console.log(naturalHeight);
+                        $("#image-map area").each(function () {
+                            var coords = $(this).attr("coords").split(",");
+                            var points = $(this).attr('points');
+
+                            if (!!points) {
+                                coords = points.split(",");
+                            } else {
+                                $(this).attr('points', coords);
+                            }
+
+                            for (i = 0; i < coords.length; i += 2) {
+                                var x = coords[i];
+                                var y = coords[i + 1];
+                                coords[i] = parseInt(parseInt(x) * width / naturalWidth);
+                                coords[i + 1] = parseInt(parseInt(y) * height / naturalHeight);
+                            }
+                            $(this).attr("coords", coords.join(","));
+                        })
+                    }).trigger('resize');
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
